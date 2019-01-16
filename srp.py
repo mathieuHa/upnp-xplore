@@ -89,6 +89,21 @@ def send_request():
 
 	return response
 
+def send_soap_request(ip_adresse, methode, service, list_arg):
+	request = \
+	"""<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding\" 
+	<s:Body> 
+		<u:%s xmlns:u=\"urn:schemas-upnp.org:service:%s\">\n""" % (methode, service)
+	for arg in list_arg:
+		request+="\t\t\t"+arg+"\n"
+	request+=""" 
+		<u/:> 
+	</s:Body> 
+</s:Envelope>"""
+	print(request)
+
+def get_value_arg(arg):
+	s = input(" >> ")
 def save_response(resp):
 
 	response = resp
@@ -283,7 +298,7 @@ def menu():
 	print("---------------------------------------\n")
 	print("1 : SEND SSDP DISCOVER")
 	print("2 : LIST IP")
-	print("4 : CLEAR DATABASE")
+	print("3 : CLEAR DATABASE")
 	print("h : HELP")
 	print("q : EXIT")
 	selection = input(" >> ")
@@ -395,6 +410,7 @@ def clear_database():
 def print_help():
 	print("Affichage de l'aide")
 
+create_database()
 
 selection = ''
 while selection != 'q':
@@ -407,6 +423,7 @@ while selection != 'q':
 		selection = menu_ip()
 	if selection == 'h':
 		print_help()
+		send_soap_request("IP @", "SERVICE", "METHODE", ["arg1", "arg2"])
 	if selection == 'q':
 		print("GOODBYE")
 
