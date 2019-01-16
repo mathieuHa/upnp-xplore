@@ -12,7 +12,7 @@ import sys, os
 
 print("Script start")
 
-listen_time = 30
+listen_time = 60
 limit_packet = 0
 folder_name = "files/"
 debug = False
@@ -133,7 +133,7 @@ def save_response(resp):
 				print(x)
 				listpos = [pos for pos, char in enumerate(x) if char == '/']
 				if len(listpos) >= 3:
-					end = listpos[2]
+					end = listpos[len(listpos)-1]
 					print(x[9:end])
 					results.add((x[9:], x[9:end]))
 
@@ -258,11 +258,13 @@ def extract_resp(res):
 ## Enregistre les actions dans des fichier xml
 	for ip in resp_ip:
 		print(ip[0])
+		print(ip[1])
 		c.execute('''SELECT * FROM SERVICES WHERE ip_id = ?''', [ip[0]])
 		resp_services = c.fetchall()
 		for ind, service in enumerate(resp_services):
 			print(service)
 			try:
+				print("SEARCHING : " + ip[1]+service[3])
 				r = requests.get(ip[1] + service[3])
 				f = open(folder_name + str(ind) + "_action.xml", "w")
 				files.add((folder_name + str(ind) + "_action.xml", service[0]))
@@ -409,8 +411,10 @@ def clear_database():
 
 def print_help():
 	print("Affichage de l'aide")
+	print("A L AIDE")
 
 create_database()
+print_help()
 
 selection = ''
 while selection != 'q':
