@@ -13,7 +13,6 @@ import sqlite3
 import sys, os
 from ssdp_discovery import *
 from ip import *
-#from dial import *
 
 print("Script start")
 

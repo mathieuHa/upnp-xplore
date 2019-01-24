@@ -127,11 +127,12 @@ def extract_resp(res):
 
 def send_discover_dial(limit_packet,listen_time):
     print("sending DIAL discovery")
-    discover="M-SEARCH * HTTP/1.1\r\n"
-    "HOST:239.255.255.250:1900\r\n"
-    "ST:upnp:rootdevice\r\n"
-    "MX:2\r\n"
-    "MAN:\"ssdp:discover\"\r\n"
+    discover="M-SEARCH * HTTP/1.1\r\n" \
+    "HOST: 239.255.255.250:1900\r\n" \
+	"MAN: \"ssdp:discover\"\r\n" \
+	"MX: 10\r\n"\
+    "ST: urn:dial-multiscreen-org:service:dial:1\r\n"\
+	"\r\n"
     resp = send_request(limit_packet,listen_time,discover)
 
 def send_discover_ssdp(limit_packet,listen_time):
@@ -145,5 +146,7 @@ def send_discover_ssdp(limit_packet,listen_time):
 	resp = send_request(limit_packet,listen_time,discover)
 	files = save_response(resp)
 	extract_resp(files)
+
+
 
 
