@@ -11,6 +11,8 @@ import sqlite3
 import sys, os
 from ssdp_discovery import *
 from ip import *
+from dial import *
+
 print("Script start")
 
 listen_time = 60
@@ -184,6 +186,7 @@ def menu():
 	print("1 : SEND SSDP DISCOVER")
 	print("2 : LIST IP")
 	print("3 : CLEAR DATABASE")
+	print("4 : SEND DIAL DISCOVER")
 	print("h : HELP")
 	print("q : EXIT")
 	selection = input(" >> ")
@@ -216,6 +219,8 @@ while selection != 'q':
 		clear_database()
 	if selection == '2':
 		selection = menu_ip(c)
+	if selection == '4':
+		selection = send_discover_dial(limit_packet,listen_time)
 	if selection == 'h':
 		print_help()
 		send_soap_request("IP @", "SERVICE", "METHODE", ["arg1", "arg2"])

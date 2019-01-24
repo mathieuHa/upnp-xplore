@@ -6,6 +6,7 @@ import pickle
 import sqlite3
 import sys, os
 from ssdp_discovery import *
+from dial import *
 
 def menu_actions_service(service,c):
 	s = ''

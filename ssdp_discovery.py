@@ -6,6 +6,7 @@ import pickle
 import sqlite3
 import sys, os
 from ip import *
+from dial import *
 
 
 def save_response(resp):
@@ -27,13 +28,7 @@ def save_response(resp):
 	results = set()
 
 	## Création de la requête discover
-def send_request(limit_packet,listen_time):
-	discover = "M-SEARCH * HTTP/1.1\r\n" \
-			   "HOST: 239.255.255.250:1900\r\n" \
-			   "MAN: \"ssdp:discover\" \r\n" \
-			   "MX: 1\r\n" \
-			   "USER-AGENT: Google Chrome/71.0.3578.98 Windows\r\n" \
-			   "\r\n"
+def send_request(limit_packet,listen_time,discover):
 
 	## Broadcast de la requête discover sur le réseau local
 	send(IP(dst="239.255.255.250") / UDP(sport=1900, dport=1900) / discover)
@@ -131,7 +126,13 @@ def extract_resp(res):
 
 def send_discover_ssdp(limit_packet,listen_time):
 	print("Sending SSDP")
-	resp = send_request(limit_packet,listen_time)
+	discover = "M-SEARCH * HTTP/1.1\r\n" \
+	"HOST: 239.255.255.250:1900\r\n" \
+	"MAN: \"ssdp:discover\" \r\n" \
+	"MX: 1\r\n" \
+	"USER-AGENT: Google Chrome/71.0.3578.98 Windows\r\n" \
+	"\r\n"
+	resp = send_request(limit_packet,listen_time,discover)
 	files = save_response(resp)
 	extract_resp(files)
 
