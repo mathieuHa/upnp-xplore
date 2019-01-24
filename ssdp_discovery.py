@@ -27,7 +27,7 @@ def save_response(resp):
 	results = set()
 
 	## Création de la requête discover
-def send_request():
+def send_request(limit_packet,listen_time):
 	discover = "M-SEARCH * HTTP/1.1\r\n" \
 			   "HOST: 239.255.255.250:1900\r\n" \
 			   "MAN: \"ssdp:discover\" \r\n" \
@@ -129,9 +129,9 @@ def extract_resp(res):
 		except xml.parsers.expat.ExpatError as e:
 			print(str(e))
 
-def send_discover_ssdp():
+def send_discover_ssdp(limit_packet,listen_time):
 	print("Sending SSDP")
-	resp = send_request()
+	resp = send_request(limit_packet,listen_time)
 	files = save_response(resp)
 	extract_resp(files)
 

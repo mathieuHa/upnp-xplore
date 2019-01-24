@@ -211,7 +211,7 @@ selection = ''
 while selection != 'q':
 	selection = menu()
 	if selection == '1':
-		send_discover_ssdp()
+		send_discover_ssdp(limit_packet,listen_time)
 	if selection == '3':
 		clear_database()
 	if selection == '2':
