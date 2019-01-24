@@ -1,3 +1,4 @@
+# --coding:Latin-1 -
 from scapy.all import *
 import requests
 from xml.dom import minidom

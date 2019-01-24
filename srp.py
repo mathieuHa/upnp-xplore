@@ -2,6 +2,8 @@
 
 # need winpcap
 # sudo apt-get install python-scapy
+# --coding:Latin-1 -
+
 from scapy.all import *
 import requests
 from xml.dom import minidom
@@ -11,7 +13,7 @@ import sqlite3
 import sys, os
 from ssdp_discovery import *
 from ip import *
-from dial import *
+#from dial import *
 
 print("Script start")
 

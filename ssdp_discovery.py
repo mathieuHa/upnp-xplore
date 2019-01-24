@@ -1,3 +1,4 @@
+# --coding:Latin-1 -
 from scapy.all import *
 import requests
 from xml.dom import minidom
@@ -6,7 +7,6 @@ import pickle
 import sqlite3
 import sys, os
 from ip import *
-from dial import *
 
 
 def save_response(resp):
@@ -38,7 +38,8 @@ def send_request(limit_packet,listen_time,discover):
 
 	return response
 
-    ## Parcours tout les fichiers xml enregistrées et récupère les infos
+
+## Parcours tout les fichiers xml enregistrées et récupère les infos
 ## des services et device présents
 def extract_resp(res):
 	results = res
@@ -123,6 +124,15 @@ def extract_resp(res):
 								  (serviceId, serviceType, SCPDURL, ip_id))
 		except xml.parsers.expat.ExpatError as e:
 			print(str(e))
+
+def send_discover_dial(limit_packet,listen_time):
+    print("sending DIAL discovery")
+    discover="M-SEARCH * HTTP/1.1\r\n"
+    "HOST:239.255.255.250:1900\r\n"
+    "ST:upnp:rootdevice\r\n"
+    "MX:2\r\n"
+    "MAN:\"ssdp:discover\"\r\n"
+    resp = send_request(limit_packet,listen_time,discover)
 
 def send_discover_ssdp(limit_packet,listen_time):
 	print("Sending SSDP")
