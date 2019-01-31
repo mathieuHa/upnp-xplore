@@ -185,7 +185,7 @@ def save_response(resp):
 
 	response = resp
 	## Affiche le résulats global des réponses
-	print(str(len(response)) + " Paquets SSDP ADVERTISE reçu-s en " + str(listen_time) + " secondes")
+	#print(str(len(response)) + " Paquets SSDP ADVERTISE reçu-s en " + str(listen_time) + " secondes")
 
 	list_ip = set()
 	for resp in response:
@@ -207,7 +207,6 @@ def send_request(limit_packet,listen_time,discover):
 
 	## Ecoute du réseau pour les réponse à la requête discover
 	response = sniff(filter="udp port 1900", lfilter=None, timeout=listen_time)
-	print(response)
 	return response
 
 
